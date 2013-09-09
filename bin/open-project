@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+
+import os
+import i3
+import time
+import sys
+
+from subprocess import check_output
+
+PROJECT_DIRS = ["$HOME/sandbox"]
+
+def cmd(s):
+    try:
+        return check_output(s, shell=True)
+    except Exception as e:
+        print e
+        pass
+
+def each_project():
+    for project_dir in PROJECT_DIRS:
+        for base, dirs, files in os.walk(os.path.expandvars(project_dir)):
+            if ".git" in dirs:
+                yield base
+
+project_menu = "\n".join(each_project())
+chosen = cmd("echo '%s' | dmenu -l 20 -nb '#111' -nf '#ccc'" % project_menu)
+term = "xfce4-terminal"
+
+if chosen:
+    i3.layout("default")
+    i3.split('h')
+    if len(sys.argv) > 1:
+        i3.EXEC("gvim -c 'cd %s'" % chosen)
+    else:
+        i3.EXEC("emacs24 --eval '(cd \"%s\")'" % chosen)
+    time.sleep(1)
+    i3.EXEC("%s --working-directory=%s" % (term, chosen))
+    time.sleep(0.5)
+    i3.split('v')
+    i3.EXEC("%s --working-directory=%s" % (term, chosen))
+    i3.EXEC("%s --working-directory=%s" % (term, chosen))

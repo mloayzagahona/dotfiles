@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+import os
+import os.path
+from subprocess import check_output
+
+book_dir = os.path.expandvars("$HOME/Dropbox/computer_science")
+books = {}
+for base_dir, dirs, files in os.walk(book_dir):
+    for file in files:
+        books[os.path.splitext(file)[0]] = os.path.join(base_dir, file)
+
+try:
+    book = check_output("echo '%s' | dmenu-vert" % "\n".join(books.keys()),
+                        shell=True)
+except:
+    book = ""
+
+if book != "":
+    check_output("evince '%s'" % books[book], shell=True)

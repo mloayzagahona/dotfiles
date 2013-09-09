@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+dmenu -i -l 20 -nb '#345' -nf '#fff' "$@"
