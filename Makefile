@@ -1,15 +1,27 @@
-BASE_DIR = $(HOME)/foo
+BASE_DIR = $(HOME)
 SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs-live.el
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
 EMACS_LIVE = $(BASE_DIR)/.emacs.d
 LIVE_PACKS = $(BASE_DIR)/.live-packs
-PACKAGES = emacs24 i3 ttf-inconsolata
+PACKAGES = emacs24 i3 ttf-inconsolata xfce4-terminal
 
-all: ppas $(PACKAGES) $(DOTFILES) $(EMACS_LIVE) $(LIVE_PACKS) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
+all: ppas $(PACKAGES) backup $(DOTFILES) $(EMACS_LIVE) $(LIVE_PACKS) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
 
 .PHONY: $(PACKAGES)
 $(PACKAGES):
 	if [ -z "`dpkg -l | grep $@`" ]; then sudo apt-get install $@; fi
+
+.PHONY: backup
+backup:
+	@for f in $(DOTFILES); do \
+		if [ -h $$f ]; \
+		then \
+			unlink $$f; \
+		elif [ -f $$f ]; \
+		then \
+			mv $$f $$f.bak; \
+		fi \
+	done
 
 $(LIVE_PACKS):
 	mkdir -p $@
