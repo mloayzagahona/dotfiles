@@ -1,6 +1,6 @@
 ## Dotfiles
 
-Here live my dotfiles, installed with a Makefile. This file is to help my poor memory.
+Here live my dotfiles, installed with a Makefile. This file is to help my poor memory. It is (a little) specific to ubuntu and assumes you want to store your code in ~/sandbox and use i3 as your window manager. Will also install golang, leiningen, emacs-live and a bunch of other stuff I find useful.
 
 ### Installation
 
