@@ -8,10 +8,6 @@ if [ -f $HOME/.bashrc.ubuntu ]; then
     source $HOME/.bashrc.ubuntu
 fi
 
-if [ -f $HOME/.bash_colors ]; then
-  source $HOME/.bash_colors
-fi
-
 if [ -f $HOME/.fehbg ]; then
   source $HOME/.fehbg
 fi

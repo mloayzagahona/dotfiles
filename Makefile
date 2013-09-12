@@ -3,12 +3,14 @@ SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.co
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
 EMACS_LIVE = $(BASE_DIR)/.emacs.d
 LIVE_PACKS = $(BASE_DIR)/.live-packs
-PACKAGES = emacs24 i3 ttf-inconsolata xfce4-terminal
+PACKAGES = emacs24 i3 ttf-inconsolata xfce4-terminal google-chrome tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep
 SANDBOX = $(BASE_DIR)/sandbox
 GO3RD = $(SANDBOX)/go3rd
 GOCODE = $(SANDBOX)/gocode
+VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/command-t $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
+EMACS_REPOS = $(EMACS_LIVE) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
 
-all: ppas $(PACKAGES) backup $(DOTFILES) emacs-live golang
+all: ppas $(PACKAGES) backup $(DOTFILES) emacs-live golang dropbox leiningen
 
 $(PACKAGES):
 	if [ -z "`dpkg -l | grep $@`" ]; then sudo apt-get install $@; fi
@@ -26,6 +28,11 @@ backup:
 	done
 .PHONY: backup
 
+refresh: 
+	@for d in $(VIM_BUNDLES) $(EMACS_REPOS); do echo refreshing $$d && cd $$d && git pull 1> /dev/null 2>&1; done
+
+# Code dirs
+
 $(SANDBOX):
 	mkdir -p $@
 
@@ -38,6 +45,8 @@ $(GOCODE):
 $(DOTFILES):
 	ln -s $(realpath $(notdir $@)) $@ 
 
+# Golang
+
 $(BASE_DIR)/go1.1.2.linux-amd64.tar.gz:
 	curl -o $@ https://go.googlecode.com/files/go1.1.2.linux-amd64.tar.gz
 
@@ -47,6 +56,8 @@ $(BASE_DIR)/go: $(BASE_DIR)/go1.1.2.linux-amd64.tar.gz
 
 golang: $(BASE_DIR)/go $(GO3RD) $(GOCODE)
 .PHONY: golang
+
+# Vim stuff
 
 $(BASE_DIR)/.vim/bundle/command-t:
 	git clone git://git.wincent.com/command-t.git $@
@@ -68,16 +79,13 @@ $(BASE_DIR)/.vim/bundle/vim-surround:
 	git clone http://github.com/tpope/vim-surround.git $@
 	touch $@
 
-vim-bundles: $(BASE_DIR)/.vim/bundle/command-t $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
+vim-bundles: $(VIM_BUNDLES)
 .PHONY: vim-bundles
+
+# Emacs
 
 emacs-live: $(EMACS_LIVE) $(LIVE_PACKS) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
 .PHONY: emacs-live
-
-update-emacs-live:
-	cd $(EMACS_LIVE) && git pull
-	cd $(LIVE_PACKS)/gjones-pack && git pull
-	cd $(LIVE_PACKS)/solarized-pack && git pull
 
 $(LIVE_PACKS):
 	mkdir -p $@
@@ -94,3 +102,22 @@ $(LIVE_PACKS)/solarized-pack:
 ppas:
 	-test -z "`find /etc/apt/sources.list.d/ -name 'cassou-emacs*'`" && sudo apt-add-repository ppa:cassou/emacs && sudo apt-get update
 .PHONY: ppas
+
+# dropbox
+
+$(BASE_DIR)/.dropbox-dist:
+	cd $(BASE_DIR) && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+	touch $@
+
+dropbox: $(BASE_DIR)/.dropbox-dist
+.PHONY: dropbox
+
+# leiningen
+
+$(BASE_DIR)/bin/lein:
+	curl -o $@ https://raw.github.com/technomancy/leiningen/stable/bin/lein
+	chmod +x $@
+	touch $@
+
+leiningen: $(BASE_DIR)/bin/lein
+.PHONY: leiningen

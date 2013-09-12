@@ -28,3 +28,4 @@ doc/tags
 .xmonad/xmonad-*
 vim/
 .vim/bundle
+bin/lein

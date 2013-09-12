@@ -13,7 +13,7 @@ if has("gui_running")
     set guioptions=-T
 
     " set default font
-    set guifont=DejaVu\ Sans\ Mono\ 10
+    set guifont=Inconsolata\ 12
 endif
 
 " bump up command history
