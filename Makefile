@@ -1,4 +1,4 @@
-BASE_DIR = $(HOME)/foo
+BASE_DIR = $(HOME)
 SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs-live.el
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
 EMACS_LIVE = $(BASE_DIR)/.emacs.d
