@@ -48,6 +48,29 @@ $(BASE_DIR)/go: $(BASE_DIR)/go1.1.2.linux-amd64.tar.gz
 golang: $(BASE_DIR)/go $(GO3RD) $(GOCODE)
 .PHONY: golang
 
+$(BASE_DIR)/.vim/bundle/command-t:
+	git clone git://git.wincent.com/command-t.git $@
+	touch $@
+
+$(BASE_DIR)/.vim/bundle/nerdcommenter:
+	git clone http://github.com/scrooloose/nerdcommenter.git $@
+	touch $@
+
+$(BASE_DIR)/.vim/bundle/nerdtree:
+	git clone http://github.com/scrooloose/nerdtree.git $@
+	touch $@
+
+$(BASE_DIR)/.vim/bundle/snipmate:
+	git clone http://github.com/msanders/snipmate.vim.git $@
+	touch $@
+
+$(BASE_DIR)/.vim/bundle/vim-surround:
+	git clone http://github.com/tpope/vim-surround.git $@
+	touch $@
+
+vim-bundles: $(BASE_DIR)/.vim/bundle/command-t $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
+.PHONY: vim-bundles
+
 emacs-live: $(EMACS_LIVE) $(LIVE_PACKS) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
 .PHONY: emacs-live
 

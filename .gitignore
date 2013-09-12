@@ -27,3 +27,4 @@ doc/tags
 .xmonad/xmonad.errors
 .xmonad/xmonad-*
 vim/
+.vim/bundle
