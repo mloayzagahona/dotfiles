@@ -98,6 +98,7 @@ $(LIVE_PACKS)/gjones-pack:
 
 $(LIVE_PACKS)/solarized-pack:
 	git clone git@github.com:siancu/solarized-pack.git $@
+	cd $@ && git submodule update --init
 
 ppas:
 	-test -z "`find /etc/apt/sources.list.d/ -name 'cassou-emacs*'`" && sudo apt-add-repository ppa:cassou/emacs && sudo apt-get update
