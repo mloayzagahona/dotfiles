@@ -7,10 +7,10 @@ PACKAGES = curl emacs24 i3 ttf-inconsolata xfce4-terminal google-chrome tmux tig
 SANDBOX = $(BASE_DIR)/sandbox
 GO3RD = $(SANDBOX)/go3rd
 GOCODE = $(SANDBOX)/gocode
-VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/command-t $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
+VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 EMACS_REPOS = $(EMACS_LIVE) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
 
-all: ppas $(PACKAGES) backup $(DOTFILES) emacs-live golang dropbox leiningen
+all: ppas $(PACKAGES) backup $(DOTFILES) vim-bundles emacs-live golang dropbox leiningen
 
 $(PACKAGES):
 	if [ -z "`dpkg -l | grep $@`" ]; then sudo apt-get install $@; fi
@@ -59,8 +59,8 @@ golang: $(BASE_DIR)/go $(GO3RD) $(GOCODE)
 
 # Vim stuff
 
-$(BASE_DIR)/.vim/bundle/command-t:
-	git clone git://git.wincent.com/command-t.git $@
+$(BASE_DIR)/.vim/bundle/ctrlp:
+	git clone https://github.com/kien/ctrlp.vim.git $@
 	touch $@
 
 $(BASE_DIR)/.vim/bundle/nerdcommenter:
