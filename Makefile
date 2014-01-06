@@ -7,6 +7,7 @@ PACKAGES = curl emacs24 i3 ttf-inconsolata xfce4-terminal google-chrome tmux tig
 SANDBOX = $(BASE_DIR)/sandbox
 GO3RD = $(SANDBOX)/go3rd
 GOCODE = $(SANDBOX)/gocode
+GOVERSION = go1.2.linux-amd64
 VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 EMACS_REPOS = $(EMACS_LIVE) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
 
@@ -47,10 +48,10 @@ $(DOTFILES):
 
 # Golang
 
-$(BASE_DIR)/go1.1.2.linux-amd64.tar.gz:
-	curl -o $@ https://go.googlecode.com/files/go1.1.2.linux-amd64.tar.gz
+$(BASE_DIR)/$(GOVERSION).tar.gz:
+	curl -o $@ https://go.googlecode.com/files/$(GOVERSION).tar.gz
 
-$(BASE_DIR)/go: $(BASE_DIR)/go1.1.2.linux-amd64.tar.gz
+$(BASE_DIR)/go: $(BASE_DIR)/$(GOVERSION).tar.gz
 	tar xzvf $^ -C $(BASE_DIR) 
 	touch $@
 
