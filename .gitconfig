@@ -29,3 +29,8 @@
         autocrlf = false
         filemode = false
 
+[user]
+	name = Gareth Jones
+	email = gareth.e.jones@gmail.com
+[push]
+	default = simple

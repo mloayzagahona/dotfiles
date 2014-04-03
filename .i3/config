@@ -18,7 +18,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal #i3-sensible-terminal
+bindsym $mod+Return exec i3-sensible-terminal # xfce4-terminal #i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -165,10 +165,10 @@ bindsym $mod+Shift+o exec open-project vim
 bindsym $mod+b exec ebook
 
 # gnome stuff
-exec gnome-settings-daemon
+exec xfsettingsd
 
 # networm config icon
 exec nm-applet
 
 # dropbox
-exec ~/.dropbox-dist/dropboxd
+# exec ~/.dropbox-dist/dropboxd

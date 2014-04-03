@@ -3,7 +3,7 @@ SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.co
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
 EMACS_LIVE = $(BASE_DIR)/.emacs.d
 LIVE_PACKS = $(BASE_DIR)/.live-packs
-PACKAGES = curl emacs24 i3 ttf-inconsolata xfce4-terminal google-chrome tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep
+PACKAGES = curl emacs24 i3 ttf-inconsolata xfce4-terminal tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep chromium-browser oracle-jdk7-installer
 SANDBOX = $(BASE_DIR)/sandbox
 GO3RD = $(SANDBOX)/go3rd
 GOCODE = $(SANDBOX)/gocode
@@ -103,6 +103,7 @@ $(LIVE_PACKS)/solarized-pack:
 
 ppas:
 	-test -z "`find /etc/apt/sources.list.d/ -name 'cassou-emacs*'`" && sudo apt-add-repository ppa:cassou/emacs && sudo apt-get update
+	-test -z "`find /etc/apt/sources.list.d/ -name 'webupd8team*'`" && sudo apt-add-repository ppa:webupd8team/java && sudo apt-get update
 .PHONY: ppas
 
 # dropbox
