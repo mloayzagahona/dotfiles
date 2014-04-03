@@ -12,6 +12,11 @@ if [ -f $HOME/.fehbg ]; then
   source $HOME/.fehbg
 fi
 
+# local to machine, not in source control
+if [ -f $HOME/.bashrc.local ]; then
+    source $HOME/.bashrc.local
+fi
+
 # git in PS1
 PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
@@ -22,3 +27,4 @@ export PATH="$PATH:${GOROOT}/bin"
 
 # add all gopath/bin dirs to path
 export PATH="$PATH:${GOPATH//://bin:}/bin"
+
