@@ -13,8 +13,11 @@ EMACS_REPOS = $(EMACS_LIVE) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pa
 
 all: ppas $(PACKAGES) backup $(DOTFILES) vim-bundles emacs-live golang dropbox leiningen
 
+packages: $(PACKAGES)
+
 $(PACKAGES):
-	if [ -z "`dpkg -l | grep $@`" ]; then sudo apt-get install $@; fi
+	@echo $@
+	@if ! dpkg -s $@ > /dev/null; then sudo apt-get install $@; fi
 .PHONY: $(PACKAGES)
 
 backup:
@@ -29,7 +32,7 @@ backup:
 	done
 .PHONY: backup
 
-refresh: 
+refresh:
 	@for d in $(VIM_BUNDLES) $(EMACS_REPOS); do echo refreshing $$d && cd $$d && git pull 1> /dev/null 2>&1; done
 
 # Code dirs
@@ -44,7 +47,7 @@ $(GOCODE):
 	mkdir -p $@
 
 $(DOTFILES):
-	ln -s $(realpath $(notdir $@)) $@ 
+	ln -s $(realpath $(notdir $@)) $@
 
 # Golang
 
@@ -52,7 +55,7 @@ $(BASE_DIR)/$(GOVERSION).tar.gz:
 	curl -o $@ https://go.googlecode.com/files/$(GOVERSION).tar.gz
 
 $(BASE_DIR)/go: $(BASE_DIR)/$(GOVERSION).tar.gz
-	tar xzvf $^ -C $(BASE_DIR) 
+	tar xzvf $^ -C $(BASE_DIR)
 	touch $@
 
 golang: $(BASE_DIR)/go $(GO3RD) $(GOCODE)
@@ -105,15 +108,6 @@ ppas:
 	-test -z "`find /etc/apt/sources.list.d/ -name 'cassou-emacs*'`" && sudo apt-add-repository ppa:cassou/emacs && sudo apt-get update
 	-test -z "`find /etc/apt/sources.list.d/ -name 'webupd8team*'`" && sudo apt-add-repository ppa:webupd8team/java && sudo apt-get update
 .PHONY: ppas
-
-# dropbox
-
-$(BASE_DIR)/.dropbox-dist:
-	cd $(BASE_DIR) && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-	touch $@
-
-dropbox: $(BASE_DIR)/.dropbox-dist
-.PHONY: dropbox
 
 # leiningen
 
