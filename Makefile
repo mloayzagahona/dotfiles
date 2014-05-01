@@ -10,8 +10,9 @@ GOCODE = $(SANDBOX)/gocode
 GOVERSION = go1.2.linux-amd64
 VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 EMACS_REPOS = $(EMACS_LIVE) $(LIVE_PACKS)/gjones-pack $(LIVE_PACKS)/solarized-pack
+PIP_INSTALLS = i3-py
 
-all: ppas $(PACKAGES) backup $(DOTFILES) vim-bundles emacs-live golang dropbox leiningen
+all: ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles emacs-live golang dropbox leiningen
 
 packages: $(PACKAGES)
 
@@ -19,6 +20,11 @@ $(PACKAGES):
 	@echo $@
 	@if ! dpkg -s $@ > /dev/null; then sudo apt-get install $@; fi
 .PHONY: $(PACKAGES)
+
+$(PIP_INSTALLS):
+	@echo $@
+	@sudo pip install $@ --exists-action i
+.PHONY: $(PIP_INSTALLS)
 
 backup:
 	@for f in $(DOTFILES); do \
