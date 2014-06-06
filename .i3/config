@@ -168,11 +168,13 @@ bindsym $mod+o exec open-project
 bindsym $mod+Shift+o exec open-project vim
 bindsym $mod+b exec ebook
 
-# gnome stuff
 exec xfsettingsd
+exec xfce4-volumed
+exec xfce4-power-manager
 
 # networm config icon
 exec nm-applet
 
 exec /usr/bin/setxkbmap -option "ctrl:nocaps"
+exec /usr/bin/xsetroot -solid '#111111'
 
