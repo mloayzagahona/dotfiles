@@ -58,7 +58,7 @@ $(DOTFILES):
 # Golang
 
 $(BASE_DIR)/$(GOVERSION).tar.gz:
-	curl -o $@ https://go.googlecode.com/files/$(GOVERSION).tar.gz
+	curl -o $@ https://storage.googleapis.com/golang/$(GOVERSION).tar.gz
 
 $(BASE_DIR)/go: $(BASE_DIR)/$(GOVERSION).tar.gz
 	tar xzvf $^ -C $(BASE_DIR)
