@@ -173,6 +173,3 @@ exec xfsettingsd
 
 # networm config icon
 exec nm-applet
-
-# dropbox
-# exec ~/.dropbox-dist/dropboxd
