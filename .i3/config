@@ -173,3 +173,6 @@ exec xfsettingsd
 
 # networm config icon
 exec nm-applet
+
+exec /usr/bin/setxkbmap -option "ctrl:nocaps"
+
