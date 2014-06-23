@@ -178,3 +178,5 @@ exec nm-applet
 exec /usr/bin/setxkbmap -option "ctrl:nocaps"
 exec /usr/bin/xsetroot -solid '#111111'
 
+# hardcode to london due to bug in redshift
+exec /usr/bin/redshift-gtk -l 51:0
