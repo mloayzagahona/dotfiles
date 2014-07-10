@@ -28,3 +28,4 @@ export PATH="$PATH:${GOROOT}/bin"
 # add all gopath/bin dirs to path
 export PATH="$PATH:${GOPATH//://bin:}/bin"
 
+

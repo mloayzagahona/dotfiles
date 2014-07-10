@@ -17,4 +17,5 @@ except:
     book = ""
 
 if book != "":
+    book = book.strip()
     check_output("evince '%s'" % books[book], shell=True)
