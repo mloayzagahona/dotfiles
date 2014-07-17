@@ -3,6 +3,12 @@
 (add-to-list 'default-frame-alist '(font . "Inconsolata 12"))
 (load-theme 'wombat 'no-confirm)
 
+;; i hate bold fonts, make them go away!
+(mapc
+  (lambda (face)
+    (set-face-attribute face nil :weight 'normal :underline nil))
+  (face-list))
+
 ;; srsly
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -187,3 +193,9 @@
 (add-hook 'cider-mode-hook 'ac-nrepl-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
+
+;; temporary files
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))

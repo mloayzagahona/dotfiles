@@ -4,3 +4,4 @@ backups
 elpa
 places
 .python-environments
+.mc-lists.el

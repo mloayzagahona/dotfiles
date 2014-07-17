@@ -182,5 +182,3 @@ exec /usr/bin/xsetroot -solid '#111111'
 # hardcode to london due to bug in redshift
 exec /usr/bin/redshift-gtk -l 51:0
 
-# desktop background
-exec --no-startup-id /usr/bin/feh --bg-scale ~/Documents/desktop_backgrounds/am4abPv.jpg
