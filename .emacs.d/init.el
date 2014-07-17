@@ -51,7 +51,8 @@
                        js2-mode
                        ace-jump-mode
                        multiple-cursors
-                       volatile-highlights))
+                       volatile-highlights
+                       smex))
 
 (catch 'break
   (dolist (p gaz/packages)
@@ -160,6 +161,12 @@
 (global-set-key (kbd "C-x C-r")   'ido-recentf-open)
 (global-set-key (kbd "M-`")       'file-cache-minibuffer-complete)
 (global-set-key (kbd "C-x C-b")   'ibuffer)
+
+;; smex
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; window number
 (require 'window-number)
