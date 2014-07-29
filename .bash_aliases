@@ -15,4 +15,5 @@ alias glg='git log --pretty=oneline'
 
 # emacs
 alias e='TERM=xterm-256color emacs -nw'
-alias ec='emacsclient'
+alias ec='emacsclient -nw'
+alias es='emacs --daemon'

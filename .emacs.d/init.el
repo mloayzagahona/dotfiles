@@ -51,14 +51,16 @@
                        jedi
                        golden-ratio
                        popwin
-                       whitespace-cleanup-mode
+                       ;; whitespace-cleanup-mode
                        smooth-scrolling
                        eval-sexp-fu
                        js2-mode
                        ace-jump-mode
                        multiple-cursors
                        volatile-highlights
-                       smex))
+                       smex
+                       elisp-slime-nav
+                       git-timemachine))
 
 (catch 'break
   (dolist (p gaz/packages)
@@ -76,11 +78,16 @@
   (add-hook (intern (concat (symbol-name n) "-mode-hook")) 'enable-paredit-mode))
 
 ;; whitespace
-(global-whitespace-cleanup-mode t)
+;; (global-whitespace-cleanup-mode t)
 
 ;; popwin
 (require 'popwin)
 (popwin-mode 1)
+
+;; slime nav
+(require 'elisp-slime-nav)
+(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+  (add-hook hook 'turn-on-elisp-slime-nav-mode))
 
 ;; ido
 (require 'flx-ido)
@@ -125,8 +132,7 @@
 (golden-ratio-mode 1)
 
 ;; indenting
-(setq tab-width 2
-      indent-tabs-mode nil)
+(setq tab-width 2)
 
 (setq clojure-defun-style-default-indent t)
 
