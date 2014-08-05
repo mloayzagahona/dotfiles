@@ -1,7 +1,7 @@
 BASE_DIR = $(HOME)
 SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs.d
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
-PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep chromium-browser oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop
+PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep google-chrome-stable oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop
 
 SANDBOX = $(BASE_DIR)/sandbox
 GO3RD = $(SANDBOX)/go3rd
@@ -10,7 +10,7 @@ GOVERSION = go1.3.linux-amd64
 VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 PIP_INSTALLS = i3-py
 
-all: ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang leiningen
+all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang leiningen
 
 packages: $(PACKAGES)
 
@@ -90,9 +90,14 @@ $(BASE_DIR)/.vim/bundle/vim-surround:
 vim-bundles: $(VIM_BUNDLES)
 .PHONY: vim-bundles
 
+signingkeys:
+	-test -z "sudo apt-key list | grep 'Google, Inc\. Linux Package Signing Key'" && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+.PHONY: signingkeys
+
 ppas:
 	-test -z "`find /etc/apt/sources.list.d/ -name 'ubuntu-elisp*'`" && sudo apt-add-repository ppa:ubuntu-elisp/ppa && sudo apt-get update
 	-test -z "`find /etc/apt/sources.list.d/ -name 'webupd8team*'`" && sudo apt-add-repository ppa:webupd8team/java && sudo apt-get update
+	-test -e /etc/apt/sources.list.d/google.list && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 .PHONY: ppas
 
 # leiningen
