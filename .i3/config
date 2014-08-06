@@ -163,7 +163,7 @@ bar {
 focus_follows_mouse no
 
 # custom keybindings
-bindsym $mod+c exec chromium-browser
+bindsym $mod+c exec google-chrome
 bindsym $mod+m exec emacs24
 bindsym $mod+o exec open-project
 bindsym $mod+Shift+o exec open-project vim
