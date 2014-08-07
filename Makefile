@@ -1,7 +1,7 @@
 BASE_DIR = $(HOME)
 SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs.d
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
-PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep google-chrome-stable oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop
+PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep google-chrome-stable oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop mercurial
 
 SANDBOX = $(BASE_DIR)/sandbox
 GO3RD = $(SANDBOX)/go3rd
@@ -10,7 +10,7 @@ GOVERSION = go1.3.linux-amd64
 VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 PIP_INSTALLS = i3-py
 
-all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang leiningen
+all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang godef leiningen
 
 packages: $(PACKAGES)
 
@@ -64,6 +64,10 @@ $(BASE_DIR)/go: $(BASE_DIR)/$(GOVERSION).tar.gz
 
 golang: $(BASE_DIR)/go $(GO3RD) $(GOCODE)
 .PHONY: golang
+
+godef: golang
+	go get code.google.com/p/rog-go/exp/cmd/godef
+.PHONY: godef
 
 # Vim stuff
 
