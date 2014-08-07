@@ -10,7 +10,7 @@ GOVERSION = go1.3.linux-amd64
 VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 PIP_INSTALLS = i3-py
 
-all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang godef leiningen
+all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang gocode leiningen
 
 packages: $(PACKAGES)
 
@@ -65,9 +65,10 @@ $(BASE_DIR)/go: $(BASE_DIR)/$(GOVERSION).tar.gz
 golang: $(BASE_DIR)/go $(GO3RD) $(GOCODE)
 .PHONY: golang
 
-godef: golang
-	go get code.google.com/p/rog-go/exp/cmd/godef
-.PHONY: godef
+gocode: golang
+	go get -u code.google.com/p/rog-go/exp/cmd/godef
+	go get -u github.com/nsf/gocode
+.PHONY: gocode
 
 # Vim stuff
 
