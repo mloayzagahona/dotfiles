@@ -16,7 +16,7 @@ packages: $(PACKAGES)
 
 $(PACKAGES):
 	@echo $@
-	@if ! dpkg -s $@ > /dev/null; then sudo apt-get install $@; fi
+	@if ! dpkg -s $@ > /dev/null; then sudo apt-get install $@ -y; fi
 .PHONY: $(PACKAGES)
 
 $(PIP_INSTALLS):
@@ -95,9 +95,10 @@ signingkeys:
 .PHONY: signingkeys
 
 ppas:
-	-test -z "`find /etc/apt/sources.list.d/ -name 'ubuntu-elisp*'`" && sudo apt-add-repository ppa:ubuntu-elisp/ppa && sudo apt-get update
-	-test -z "`find /etc/apt/sources.list.d/ -name 'webupd8team*'`" && sudo apt-add-repository ppa:webupd8team/java && sudo apt-get update
-	-test -e /etc/apt/sources.list.d/google.list && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+	-test -z "`find /etc/apt/sources.list.d/ -name 'ubuntu-elisp*'`" && sudo apt-add-repository ppa:ubuntu-elisp/ppa
+	-test -z "`find /etc/apt/sources.list.d/ -name 'webupd8team*'`" && sudo apt-add-repository ppa:webupd8team/java
+	-test ! -e /etc/apt/sources.list.d/google.list && sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+	-sudo apt-get update
 .PHONY: ppas
 
 # leiningen
