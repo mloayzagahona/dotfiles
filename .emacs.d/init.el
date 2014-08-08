@@ -1,5 +1,13 @@
 (require 'cl)
 
+;; fix the path if necessary
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell (shell-command-to-string "TERM=vt100 $SHELL -i -c 'echo $PATH'")))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(when window-system (set-exec-path-from-shell-PATH))
+
 (add-to-list 'default-frame-alist '(font . "Inconsolata 12"))
 (load-theme 'wombat 'no-confirm)
 
@@ -87,7 +95,6 @@
 (add-hook 'before-save-hook #'gofmt-before-save)
 (add-hook 'go-mode-hook (lambda ()
                           (local-set-key (kbd "M-.") #'godef-jump)))
-
 
 (require 'auto-complete-config)
 (require 'go-autocomplete)
