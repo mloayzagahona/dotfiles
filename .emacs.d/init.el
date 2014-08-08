@@ -36,6 +36,7 @@
                        align-cljlet
                        go-mode
                        go-autocomplete
+                       go-eldoc
                        magit
                        markdown-mode
                        cider
@@ -88,6 +89,14 @@
                           (local-set-key (kbd "M-.") #'godef-jump)))
 
 
+(require 'auto-complete-config)
+(require 'go-autocomplete)
+
+(require 'go-eldoc)
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+(set-face-attribute 'eldoc-highlight-function-argument nil
+                    :underline t :foreground "green"
+                    :weight 'bold)
 
 ;; popwin
 (require 'popwin)
