@@ -39,6 +39,11 @@ backup:
 refresh:
 	@for d in $(VIM_BUNDLES) ; do echo refreshing $$d && cd $$d && git pull 1> /dev/null 2>&1; done
 
+wireshark:
+	sudo dpkg-reconfigure wireshark-common
+	sudo usermod -a -G wireshark $USER
+.PHONY: wireshark
+
 # Code dirs
 
 $(SANDBOX):
