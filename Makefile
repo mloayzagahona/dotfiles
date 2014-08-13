@@ -1,7 +1,7 @@
 BASE_DIR = $(HOME)
 SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs.d
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
-PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep google-chrome-stable oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop mercurial wireshark wireshark-common
+PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep google-chrome-stable oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop mercurial wireshark wireshark-common bzr
 
 SANDBOX = $(BASE_DIR)/sandbox
 GO3RD = $(SANDBOX)/go3rd

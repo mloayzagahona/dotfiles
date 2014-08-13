@@ -70,7 +70,10 @@
                        volatile-highlights
                        smex
                        elisp-slime-nav
-                       git-timemachine))
+                       git-timemachine
+                       haml-mode
+                       sass-mode
+                       scss-mode))
 
 (catch 'break
   (dolist (p gaz/packages)
