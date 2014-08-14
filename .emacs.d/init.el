@@ -71,9 +71,15 @@
                        smex
                        elisp-slime-nav
                        git-timemachine
+
+                       ;; hipster shit
                        haml-mode
                        sass-mode
-                       scss-mode))
+                       scss-mode
+                       ruby-tools
+                       yaml-mode
+                       robe
+                       rbenv))
 
 (catch 'break
   (dolist (p gaz/packages)
@@ -107,6 +113,22 @@
 (set-face-attribute 'eldoc-highlight-function-argument nil
                     :underline t :foreground "green"
                     :weight 'bold)
+
+;; ruby
+
+(require 'ruby-tools)
+
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile$" . ruby-mode))
+
+(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
+
+(setq scss-compile-at-save nil)
 
 ;; popwin
 (require 'popwin)
