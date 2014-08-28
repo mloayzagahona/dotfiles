@@ -71,6 +71,7 @@
                        smex
                        elisp-slime-nav
                        git-timemachine
+                       projectile
 
                        ;; hipster shit
                        haml-mode
@@ -113,6 +114,10 @@
 (set-face-attribute 'eldoc-highlight-function-argument nil
                     :underline t :foreground "green"
                     :weight 'bold)
+
+;; try out projectile
+
+(projectile-global-mode)
 
 ;; ruby
 
