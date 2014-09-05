@@ -8,9 +8,8 @@ PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsol
 # wireshark wireshark-common
 
 SANDBOX = $(BASE_DIR)/sandbox
-GO3RD = $(SANDBOX)/go3rd
 GOCODE = $(SANDBOX)/gocode
-GOPATH = $(GO3RD):$(GOCODE):$(SANDBOX)
+GOPATH = $(GOCODE)
 GOVERSION = go1.3.1.linux-amd64
 VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 PIP_INSTALLS = i3-py
@@ -54,9 +53,6 @@ wireshark:
 
 # Code dirs
 
-$(GO3RD):
-	mkdir -p $@
-
 $(GOCODE):
 	mkdir -p $@
 
@@ -76,7 +72,7 @@ $(BASE_DIR)/go: $(BASE_DIR)/$(GOVERSION).tar.gz
 	tar xzvf $^ -C $(BASE_DIR)
 	touch $@
 
-golang: $(BASE_DIR)/go $(GO3RD) $(GOCODE)
+golang: $(BASE_DIR)/go $(GOCODE)
 .PHONY: golang
 
 gocode: golang
