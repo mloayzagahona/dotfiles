@@ -59,7 +59,6 @@
                        restclient
                        python-environment
                        jedi
-                       golden-ratio
                        popwin
                        ;; whitespace-cleanup-mode
                        smooth-scrolling
@@ -184,7 +183,7 @@
       initial-scratch-message nil)
 
 ;; golden ratio
-(golden-ratio-mode 1)
+;; (golden-ratio-mode 1)
 
 ;; indenting
 (setq default-tab-width 2)
