@@ -22,6 +22,6 @@ PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
 # golang
 export GOROOT=$HOME/go
-export GOPATH="$HOME/sandbox/code"
+export GOPATH="$HOME/sandbox/gocode"
 export PATH="$PATH:${GOROOT}/bin:${GOPATH}/bin"
 

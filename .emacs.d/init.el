@@ -34,7 +34,7 @@
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa-stable.milkbox.net/packages/") t)
 
 (defvar gaz/packages '(auto-complete
                        ac-slime
@@ -43,7 +43,7 @@
                        clojurescript-mode
                        align-cljlet
                        go-mode
-                       go-autocomplete
+                       ;; go-autocomplete
                        go-eldoc
                        magit
                        markdown-mode
@@ -56,7 +56,7 @@
                        idomenu
                        ido-ubiquitous
                        undo-tree
-                       restclient
+                       ;; restclient
                        python-environment
                        jedi
                        popwin
@@ -93,6 +93,7 @@
 
 ;; paredit
 
+(require 'paredit)
 (dolist (n '(scheme emacs-lisp lisp clojure cider-repl))
   (add-hook (intern (concat (symbol-name n) "-mode-hook")) 'enable-paredit-mode))
 
@@ -106,7 +107,7 @@
                           (local-set-key (kbd "M-.") #'godef-jump)))
 
 (require 'auto-complete-config)
-(require 'go-autocomplete)
+;; (require 'go-autocomplete)
 
 (require 'go-eldoc)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
@@ -136,7 +137,7 @@
 
 ;; popwin
 (require 'popwin)
-(popwin-mode 1)
+(setq display-buffer-function 'popwin:display-buffer)
 
 ;; slime nav
 (require 'elisp-slime-nav)
