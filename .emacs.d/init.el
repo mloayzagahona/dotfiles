@@ -43,7 +43,6 @@
                        clojurescript-mode
                        align-cljlet
                        go-mode
-                       ;; go-autocomplete
                        go-eldoc
                        magit
                        markdown-mode
@@ -107,7 +106,7 @@
                           (local-set-key (kbd "M-.") #'godef-jump)))
 
 (require 'auto-complete-config)
-;; (require 'go-autocomplete)
+(require 'go-autocomplete)
 
 (require 'go-eldoc)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
