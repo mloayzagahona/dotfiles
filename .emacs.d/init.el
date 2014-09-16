@@ -209,6 +209,7 @@
 
 ;; clojure
 (require 'clojure-mode)
+(require 'align-cljlet)
 (define-key clojure-mode-map (kbd "C-c l l") 'align-cljlet)
 (define-key clojure-mode-map (kbd "C-M-z")   'align-cljlet)
 

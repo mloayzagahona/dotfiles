@@ -168,6 +168,7 @@ bindsym $mod+m exec emacs24
 bindsym $mod+o exec open-project
 bindsym $mod+Shift+o exec open-project vim
 bindsym $mod+b exec ebook
+bindsym $mod+Shift+p exec sudo pm-suspend
 
 exec xfsettingsd
 exec xfce4-volumed

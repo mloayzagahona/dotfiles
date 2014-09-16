@@ -16,7 +16,7 @@ PIP_INSTALLS = i3-py
 SQL_WORKBENCH = Workbench-Build116.zip
 POSTGRES_DRIVER = postgresql-9.3-1102.jdbc41.jar
 
-all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang gocode leiningen
+all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang gocode leiningen suspend-permissions
 
 packages: $(PACKAGES)
 
@@ -134,3 +134,10 @@ $(SRC_DIR)/sqlworkbench/$(POSTGRES_DRIVER):
 	curl -o $@ http://jdbc.postgresql.org/download/$(POSTGRES_DRIVER)
 
 sqlworkbench: $(SRC_DIR)/sqlworkbench $(SRC_DIR)/sqlworkbench/$(POSTGRES_DRIVER)
+
+/etc/sudoers.d/suspend:
+	@sudo bash -c 'echo "${USER} ALL=(ALL) NOPASSWD: /usr/sbin/pm-suspend" > $@'
+	@sudo bash -c 'chmod 0440 $@'
+
+suspend-permissions: /etc/sudoers.d/suspend
+.PHONY: suspend-permissions
