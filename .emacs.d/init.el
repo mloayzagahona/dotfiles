@@ -70,7 +70,8 @@
                        elisp-slime-nav
                        git-timemachine
                        projectile
-
+                       vlf
+                       
                        ;; hipster shit
                        haml-mode
                        sass-mode
@@ -89,6 +90,10 @@
 (dolist (p gaz/packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;; view large files
+
+(require 'vlf-integrate)
 
 ;; paredit
 
