@@ -1,13 +1,13 @@
 BASE_DIR = $(HOME)
 SRC_DIR = $(BASE_DIR)/src
-SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs.d
+SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim 
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
-PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python2.7-dev python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep google-chrome-stable oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop mercurial bzr libncursesw5 libncursesw5-dev libncurses-dev aria2c
+PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python2.7-dev python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop mercurial bzr libncursesw5 libncursesw5-dev libncurses-dev 
 
 # seem to be having problems with these packages :/
 # wireshark wireshark-common
 
-SANDBOX = $(BASE_DIR)/sandbox
+SANDBOX = $(BASE_DIR)/code
 GOCODE = $(SANDBOX)/gocode
 GOPATH = $(GOCODE)
 GOVERSION = go1.4rc2.linux-amd64
@@ -16,7 +16,7 @@ PIP_INSTALLS = i3-py
 SQL_WORKBENCH = Workbench-Build116.zip
 POSTGRES_DRIVER = postgresql-9.3-1102.jdbc41.jar
 
-all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang gocode leiningen suspend-permissions
+all: ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang gocode leiningen suspend-permissions
 
 packages: $(PACKAGES)
 
@@ -102,10 +102,6 @@ $(BASE_DIR)/.vim/bundle/vim-surround:
 	touch $@
 
 vim-bundles: $(VIM_BUNDLES)
-
-signingkeys:
-	-test -z "$(apt-key list | grep 'Google, Inc\. Linux Package Signing Key')" && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-.PHONY: signingkeys
 
 ppas:
 	-test -z "`find /etc/apt/sources.list.d/ -name 'ubuntu-elisp*'`" && sudo apt-add-repository ppa:ubuntu-elisp/ppa
