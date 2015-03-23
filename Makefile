@@ -1,10 +1,10 @@
 BASE_DIR = $(HOME)
 SRC_DIR = $(BASE_DIR)/src
-SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs.d
+SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim 
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
 PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python2.7-dev python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep gksu nmap inxi valgrind alleyoop mercurial bzr libncursesw5 libncursesw5-dev libncurses-dev 
 
-SANDBOX = $(BASE_DIR)/sandbox
+SANDBOX = $(BASE_DIR)/code
 GOCODE = $(SANDBOX)/gocode
 GOPATH = $(GOCODE)
 GOVERSION = go1.4.2.linux-amd64

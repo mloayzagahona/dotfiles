@@ -4,11 +4,17 @@ import os
 import os.path
 from subprocess import check_output
 
-book_dir = os.path.expandvars("$HOME/Documents/computer_science")
+def find_in(search_dir, books):
+    for base_dir, dirs, files in os.walk(search_dir):
+        for file in files:
+            books[os.path.splitext(file)[0]] = os.path.join(base_dir, file)
+
+book_dir = os.path.expandvars("$HOME/Dropbox/computer_science")
+docs_dir = os.path.expandvars("$HOME/Documents")
+
 books = {}
-for base_dir, dirs, files in os.walk(book_dir):
-    for file in files:
-        books[os.path.splitext(file)[0]] = os.path.join(base_dir, file)
+find_in(book_dir, books)
+find_in(docs_dir, books)
 
 try:
     book = check_output("echo '%s' | dmenu-vert" % "\n".join(books.keys()),

@@ -1,6 +1,8 @@
 # scm
 export EDITOR='vim'
 
+export FIG_REMOTE_URL="ftp://devnas/builds/Fig/repos"
+
 # TERM
 export TERM='xterm-256color'
 
@@ -22,6 +24,14 @@ PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
 # golang
 export GOROOT=$HOME/go
-export GOPATH="$HOME/sandbox/gocode"
+export GOPATH="$HOME/code/gocode"
 export PATH="$PATH:${GOROOT}/bin:${GOPATH}/bin"
 
+# vpn
+export PATH="/opt/cisco/vpn/bin:$PATH"
+
+# yourkit
+export PATH="/opt/yourkit/current/bin:$PATH"
+
+# intellij
+export PATH="/opt/intellij/current/bin:$PATH"
