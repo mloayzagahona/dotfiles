@@ -2,21 +2,16 @@ BASE_DIR = $(HOME)
 SRC_DIR = $(BASE_DIR)/src
 SOURCES = .bash_aliases .bash_profile .bashrc .bashrc.ubuntu .gitconfig .tmux.conf .vimrc bin .i3 .vim .emacs.d
 DOTFILES = $(addprefix $(BASE_DIR)/,$(SOURCES))
-PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python2.7-dev python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep google-chrome-stable oracle-jdk7-installer gksu nmap inxi redshift-gtk valgrind alleyoop mercurial bzr libncursesw5 libncursesw5-dev libncurses-dev aria2c
-
-# seem to be having problems with these packages :/
-# wireshark wireshark-common
+PACKAGES = vim curl emacs24 emacs24-el emacs24-common-non-dfsg i3 fonts-inconsolata xfce4-terminal tmux tig python2.7 python2.7-dev python-virtualenv python-pip ipython ipython-notebook inotify-tools ack-grep gksu nmap inxi valgrind alleyoop mercurial bzr libncursesw5 libncursesw5-dev libncurses-dev 
 
 SANDBOX = $(BASE_DIR)/sandbox
 GOCODE = $(SANDBOX)/gocode
 GOPATH = $(GOCODE)
-GOVERSION = go1.4rc2.linux-amd64
+GOVERSION = go1.4.2.linux-amd64
 VIM_BUNDLES = $(BASE_DIR)/.vim/bundle/ctrlp $(BASE_DIR)/.vim/bundle/nerdcommenter $(BASE_DIR)/.vim/bundle/nerdtree $(BASE_DIR)/.vim/bundle/snipmate $(BASE_DIR)/.vim/bundle/vim-surround
 PIP_INSTALLS = i3-py
-SQL_WORKBENCH = Workbench-Build116.zip
-POSTGRES_DRIVER = postgresql-9.3-1102.jdbc41.jar
 
-all: signingkeys ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang gocode leiningen suspend-permissions
+all: ppas $(PACKAGES) $(PIP_INSTALLS) backup $(DOTFILES) vim-bundles golang gocode leiningen 
 
 packages: $(PACKAGES)
 
@@ -44,12 +39,6 @@ backup:
 
 refresh-vim-bundles:
 	@for d in $(VIM_BUNDLES) ; do echo refreshing $$d && cd $$d && git pull 1> /dev/null 2>&1; done
-
-# useful if you want to setup wireshark correctly to capture
-wireshark:
-	sudo dpkg-reconfigure wireshark-common
-	sudo usermod -a -G wireshark $$USER
-.PHONY: wireshark
 
 # Code dirs
 
@@ -103,14 +92,8 @@ $(BASE_DIR)/.vim/bundle/vim-surround:
 
 vim-bundles: $(VIM_BUNDLES)
 
-signingkeys:
-	-test -z "$(apt-key list | grep 'Google, Inc\. Linux Package Signing Key')" && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-.PHONY: signingkeys
-
 ppas:
 	-test -z "`find /etc/apt/sources.list.d/ -name 'ubuntu-elisp*'`" && sudo apt-add-repository ppa:ubuntu-elisp/ppa
-	-test -z "`find /etc/apt/sources.list.d/ -name 'webupd8team*'`" && sudo apt-add-repository ppa:webupd8team/java
-	-test ! -e /etc/apt/sources.list.d/google.list && sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 	-sudo apt-get update
 .PHONY: ppas
 
@@ -122,34 +105,3 @@ $(BASE_DIR)/bin/lein:
 	touch $@
 
 leiningen: $(BASE_DIR)/bin/lein
-
-# omg sqlworkbench
-
-$(SRC_DIR)/sqlworkbench:
-	curl -o $@.zip http://www.sql-workbench.net/$(SQL_WORKBENCH)
-	unzip -d $@ $@.zip
-	chmod +x $@/sqlworkbench.sh
-
-$(SRC_DIR)/sqlworkbench/$(POSTGRES_DRIVER):
-	curl -o $@ http://jdbc.postgresql.org/download/$(POSTGRES_DRIVER)
-
-sqlworkbench: $(SRC_DIR)/sqlworkbench $(SRC_DIR)/sqlworkbench/$(POSTGRES_DRIVER)
-
-/etc/sudoers.d/suspend:
-	@sudo bash -c 'echo "${USER} ALL=(ALL) NOPASSWD: /usr/sbin/pm-suspend" > $@'
-	@sudo bash -c 'chmod 0440 $@'
-
-suspend-permissions: /etc/sudoers.d/suspend
-.PHONY: suspend-permissions
-
-# mdp (cli markdown viewer)
-
-$(SRC_DIR)/mdp:
-	git clone git@github.com:visit1985/mdp.git $@
-	
-/usr/bin/mdp: $(SRC_DIR)/mdp
-	cd $(SRC_DIR)/mdp && make && sudo make install
-
-mdp: /usr/bin/mdp
-.PHONY: mdp
-
