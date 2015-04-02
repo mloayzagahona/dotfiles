@@ -23,7 +23,7 @@ floating_modifier $mod
 workspace_auto_back_and_forth yes
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal # i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal # i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -170,15 +170,10 @@ bindsym $mod+Shift+o exec open-project vim
 bindsym $mod+b exec ebook
 bindsym $mod+Shift+p exec sudo pm-suspend
 
-# networm config icon
-exec nm-applet
-exec --no-startup-id /usr/bin/xfce4-volumed
-
-# exec /usr/bin/setxkbmap -option "ctrl:nocaps"
+#exec --no-startup-id /usr/bin/setxkbmap -option "ctrl:nocaps"
 exec --no-startup-id /usr/bin/xsetroot -solid '#111111'
-
-exec --no-startup-id unity-settings-daemon
-
+exec --no-startup-id /usr/bin/unity-settings-daemon
+exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/dropbox start
 
 for_window [class="Xfce4-notifyd"] floating enable; border none; focus mode_toggle
