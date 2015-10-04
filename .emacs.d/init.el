@@ -1,15 +1,10 @@
 (require 'cl)
 
-;; fix the path if necessary
-(defun set-exec-path-from-shell-PATH ()
-  (let ((path-from-shell (shell-command-to-string "TERM=vt100 $SHELL -i -c 'echo $PATH'")))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
+(add-to-list 'default-frame-alist '(font . "Consolas 8"))
 
-(when window-system (set-exec-path-from-shell-PATH))
-
-(add-to-list 'default-frame-alist '(font . "Inconsolata 12"))
-(load-theme 'wombat 'no-confirm)
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
+(load-theme 'github t)
+;; (load-theme 'wombat 'no-confirm)
 
 ;; i hate bold fonts, make them go away!
 (mapc
@@ -34,9 +29,10 @@
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa-stable.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-(defvar gaz/packages '(auto-complete
+(defvar gaz/packages '(exec-path-from-shell
+                       auto-complete
                        ac-slime
                        paredit
                        clojure-mode
@@ -70,7 +66,7 @@
                        elisp-slime-nav
                        git-timemachine
                        projectile
-                       vlf
+                       ;; vlf
                        
                        ;; hipster shit
                        haml-mode
@@ -91,9 +87,14 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+;; fix path in windows systems
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;; view large files
 
-(require 'vlf-integrate)
+;; (require 'vlf-integrate)
 
 ;; js2 mode
 
@@ -274,3 +275,5 @@
 
 ;; lemme downcase sucker
 (put 'downcase-region 'disabled nil)
+
+
