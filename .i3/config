@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Use antialiased font
 # font pango:Liberation Mono 10
-font pango:DejaVu Sans Mono 10
+font pango:Monospace 10
 # font xft:Inconsolata 12
 # font xft:Arial 12
 
@@ -171,17 +171,25 @@ bindsym $mod+Shift+o exec open-project vim
 bindsym $mod+b exec ebook
 bindsym $mod+Shift+p exec sudo pm-suspend
 
-exec xfsettingsd
-exec xfce4-volumed
-exec xfce4-power-manager
+#exec xfsettingsd
+#exec xfce4-volumed
+#exec xfce4-power-manager
+
+exec unity-settings-daemon
+exec gnome-keyring-daemon
 
 # networm config icon
 exec nm-applet
 
 exec /usr/bin/setxkbmap -option "ctrl:nocaps"
-exec /usr/bin/xsetroot -solid '#111111'
-exec --no-startup-id /usr/bin/dropbox start
+#exec /usr/bin/xsetroot -solid '#111111'
+#exec --no-startup-id /usr/bin/dropbox start
 
 # hardcode to london due to bug in redshift
 # exec /usr/bin/redshift-gtk -l 51:0
+
+exec pulseaudio --start --log-target=syslog
+# bindsym XF86AudioRaiseVolume exec amixer -q set Master 2%+ unmute
+# bindsym XF86AudioLowerVolume exec amixer -q set Master 2%- unmute
+# bindsym XF86AudioMute exec amixer -q set Master toggle
 
